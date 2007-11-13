@@ -1,4 +1,4 @@
-#summary How !AtUnit helps test authors.
+#summary How AtUnit helps test authors.
 
 =Why !AtUnit?=
 
