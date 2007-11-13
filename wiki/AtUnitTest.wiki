@@ -1,4 +1,5 @@
 #summary A quick guide to the pieces of an AtUnit test
+#labels Featured
 
 =Anatomy of an !AtUnit test=
 
