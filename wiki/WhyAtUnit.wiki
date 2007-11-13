@@ -1,0 +1,7 @@
+#summary How !AtUnit helps test authors.
+
+=Why !AtUnit?=
+
+A key tenet of unit testing is isolation.  You want to test one object at a time, and often you want to test its interactions with other objects.  The Inversion of Control pattern facilitates isolation, and mock objects help test interactions.  Unfortunately, the use of IoC containers and mock object frameworks can introduce a lot of tedious boilerplate into your unit tests.  Boilerplate is the enemy of clarity, and tedium is demotivating; good developers love tests and hate duplication.  This is where !AtUnit can help.
+
+!AtUnit reduces to an absolute minimum the setup code for unit tests, especially tests which use an IoC container and mock objects.  Typically, a couple of annotations on the test class (or a test superclass) and some annotated fields are all that's required.  You can use the container and mock toolkit of your choice:  Some popular options are supported out of the box, and it's easy to plug in your own.  Neither the container nor the mock toolkit is required, though.  !AtUnit will help you write tests even without them.
