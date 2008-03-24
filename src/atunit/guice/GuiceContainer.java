@@ -17,7 +17,6 @@
 package atunit.guice;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
 
@@ -27,9 +26,7 @@ import com.google.common.collect.Multimaps;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Key;
 import com.google.inject.Module;
-import com.google.inject.TypeLiteral;
 
 import atunit.core.Container;
 
@@ -61,18 +58,17 @@ public class GuiceContainer implements Container {
 		protected void configure() {
 			
 			// map field values by type
-			Multimap<Type, Field> fieldsByType = Multimaps.newHashMultimap();
+			Multimap<Class, Field> fieldsByType = Multimaps.newHashMultimap();
 			for ( Field field : fields.keySet() ) {
-				fieldsByType.put(field.getGenericType(), field);
+				fieldsByType.put(field.getType(), field);
 			}
 			
 			// for any types that don't have duplicates, bind instances.
-			for ( Type type : fieldsByType.keySet() ) {
+			for ( Class type : fieldsByType.keySet() ) {
 				Collection<Field> fields = fieldsByType.get(type);
 				if ( fields.size() == 1 ) {
 					Field field = Iterables.getOnlyElement(fields);
-					TypeLiteral literal = TypeLiteral.get(type);
-					bind(literal).toInstance(this.fields.get(field));
+					bind(type).toInstance(this.fields.get(field));
 				}
 			}
 		}
