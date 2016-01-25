@@ -116,7 +116,7 @@ public class SpringContainer implements Container {
 	protected AbstractBeanDefinition defineAutowireBean(Class<?> type) throws Exception {
 		AbstractBeanDefinition beandef = BeanDefinitionReaderUtils.createBeanDefinition(null, type.getName(), type.getClassLoader());
 		beandef.setAutowireCandidate(true);
-		beandef.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_AUTODETECT);
+		beandef.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_NO);
 		return beandef;
 	}
 	

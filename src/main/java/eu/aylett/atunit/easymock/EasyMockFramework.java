@@ -16,20 +16,19 @@
 
 package eu.aylett.atunit.easymock;
 
+import eu.aylett.atunit.Mock;
+import eu.aylett.atunit.Stub;
+import eu.aylett.atunit.core.MockFramework;
+import org.easymock.EasyMock;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.easymock.EasyMock;
-
-import eu.aylett.atunit.Mock;
-import eu.aylett.atunit.Stub;
-import eu.aylett.atunit.core.MockFramework;
-
 public class EasyMockFramework implements MockFramework {
 
 	public Map<Field, Object> getValues(Field[] fields) throws Exception {
-		Map<Field,Object> mocksAndStubs = new HashMap<Field,Object>();
+		Map<Field,Object> mocksAndStubs = new HashMap<>();
 	
 		for ( Field field : fields ) {
 			if ( field.getAnnotation(Mock.class) != null ) {

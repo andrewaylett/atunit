@@ -5,7 +5,7 @@
 
 
   <bean id="unit" class="java.lang.String">
-  	<constructor-arg value="unit from context">
+  	<constructor-arg value="unit from context"/>
   </bean>
 
 </beans>

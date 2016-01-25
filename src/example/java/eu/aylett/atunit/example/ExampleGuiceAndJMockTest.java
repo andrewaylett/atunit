@@ -62,7 +62,7 @@ public class ExampleGuiceAndJMockTest {
 	public void testGetUser() {
 
 		mockery.checking(new Expectations() {{ 
-			one (dao).load(with(equal(500)));
+			oneOf(dao).load(with(equal(500)));
 				will(returnValue(emptyUser));
 		}});
 		

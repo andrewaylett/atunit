@@ -13,6 +13,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 final public class TestClassUtils {
 
@@ -116,26 +117,18 @@ final public class TestClassUtils {
 	 * Gets all fields annotated with Mock.
 	 */
 	public static Set<Field> getMockFields(Set<Field> fields) {
-		Set<Field> mocks = Sets.newHashSet();
-		for ( Field field : fields ) {
-			if ( field.getAnnotation(Mock.class) != null ) {
-				mocks.add(field);
-			}
-		}
-		return ImmutableSet.copyOf(mocks);
+		return fields.stream()
+				.filter(field -> field.getAnnotation(Mock.class) != null)
+				.collect(Collectors.toSet());
 	}
 	
 	/**
 	 * Gets all fields annotated with Stub
 	 */
 	public static Set<Field> getStubFields(Set<Field> fields) {
-		Set<Field> stubs = Sets.newHashSet();
-		for ( Field field : fields ) {
-			if ( field.getAnnotation(Stub.class) != null ) {
-				stubs.add(field);
-			}
-		}
-		return ImmutableSet.copyOf(stubs);
+		return fields.stream()
+				.filter(field -> field.getAnnotation(Stub.class) != null)
+				.collect(Collectors.toSet());
 	}
 	
 }

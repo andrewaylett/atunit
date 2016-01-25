@@ -25,8 +25,8 @@ import eu.aylett.atunit.guice.GuiceContainer;
 import eu.aylett.atunit.jmock.JMockFramework;
 import eu.aylett.atunit.mockito.MockitoFramework;
 import eu.aylett.atunit.spring.SpringContainer;
-import org.junit.internal.runners.InitializationError;
-import org.junit.internal.runners.JUnit4ClassRunner;
+import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.model.InitializationError;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -44,7 +44,7 @@ import java.util.Set;
  * 
  * @see <a href="example/ExampleAtUnitTest.java.xhtml"/>ExampleAtUnitTest.java</a>
  */
-public class AtUnit extends JUnit4ClassRunner {
+public class AtUnit extends BlockJUnit4ClassRunner {
 
 	public AtUnit(Class<?> testClass) throws InitializationError {
 		super(testClass);

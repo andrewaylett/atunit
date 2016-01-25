@@ -16,10 +16,6 @@
 
 package eu.aylett.atunit.jmock;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import eu.aylett.atunit.AtUnit;
 import eu.aylett.atunit.Mock;
 import eu.aylett.atunit.MockFramework;
@@ -32,6 +28,8 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
 
 public class JMockFrameworkTests {
 	
@@ -60,6 +58,7 @@ public class JMockFrameworkTests {
 	public void tMockWithoutMockery() {
 		Result result = junit.run(TestClasses.MockWithoutMockery.class);
 		assertFalse(result.wasSuccessful());
+		//noinspection ThrowableResultOfMethodCallIgnored
 		assertTrue(result.getFailures().get(0).getException() instanceof NoMockeryException);
 	}
 	
@@ -71,6 +70,7 @@ public class JMockFrameworkTests {
 			
 			Result result = junit.run(testClass);
 			assertFalse(result.wasSuccessful());
+			//noinspection ThrowableResultOfMethodCallIgnored
 			assertTrue(result.getFailures().get(0).getException() instanceof IncompatibleAnnotationException);
 		}
 	}
@@ -93,12 +93,14 @@ public class JMockFrameworkTests {
 		}
 		
 		public static class HappyTest extends AbstractJMockTest {
+			@SuppressWarnings("unused")
 			@Unit
 			String unit;
 		}
 		
 		public static class WithMockery extends AbstractJMockTest {
 			Mockery mockery;
+			@SuppressWarnings("unused")
 			@Unit String unit;
 			@Mock
 			ExampleInterface myMock;
@@ -106,7 +108,7 @@ public class JMockFrameworkTests {
 			@Test
 			public void tMockery() {
 				mockery.checking(new Expectations() {{ 
-					one (myMock).isAwesome();
+					oneOf(myMock).isAwesome();
 						will(returnValue(true));
 				}});
 				
@@ -118,21 +120,25 @@ public class JMockFrameworkTests {
 			
 		}
 		
+		@SuppressWarnings("unused")
 		public static class MockWithoutMockery extends AbstractJMockTest {
 			@Unit String unit;
 			@Mock ExampleInterface mock;
 		}
 		
 		public static class MockUnit extends AbstractJMockTest {
+			@SuppressWarnings("unused")
 			@Mock @Unit ExampleInterface mock;
 			public MockUnit() {}
 		}
 		
 		public static class MockeryUnit extends AbstractJMockTest {
+			@SuppressWarnings("unused")
 			@Unit Mockery mockery;
 			public MockeryUnit() {}
 		}
 		
+		@SuppressWarnings("unused")
 		public static class MockeryMock extends AbstractJMockTest {
 			@Mock Mockery mockery;
 			@Unit String unit;
@@ -141,7 +147,7 @@ public class JMockFrameworkTests {
 		
 	}
 	
-	public static interface ExampleInterface {
+	public interface ExampleInterface {
 		boolean isAwesome();
 	}
 	

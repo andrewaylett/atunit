@@ -16,6 +16,14 @@
 
 package eu.aylett.atunit.jmock;
 
+import eu.aylett.atunit.Mock;
+import eu.aylett.atunit.Stub;
+import eu.aylett.atunit.core.IncompatibleAnnotationException;
+import eu.aylett.atunit.core.MockFramework;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -23,22 +31,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import eu.aylett.atunit.Stub;
-import eu.aylett.atunit.core.IncompatibleAnnotationException;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-
-import eu.aylett.atunit.Mock;
-import eu.aylett.atunit.core.MockFramework;
-
 public class JMockFramework implements MockFramework {
 
 	public Map<Field, Object> getValues(Field[] fields) throws Exception {
-		final Map<Field,Object> jmockFields = new HashMap<Field,Object>();
+		final Map<Field,Object> jmockFields = new HashMap<>();
 		
 		Mockery mockery = null;
-		final Set<Object> ignored = new HashSet<Object>();
+		final Set<Object> ignored = new HashSet<>();
 		
 		for ( Field field : fields ) {
 			if ( Mockery.class.isAssignableFrom(field.getType())) {
@@ -86,9 +85,7 @@ public class JMockFramework implements MockFramework {
 		
 		if ( !ignored.isEmpty() ) {
 			Expectations expectations = new Expectations() {{
-				for ( Object mock : ignored ) {
-					ignoring(mock);
-				}
+				ignored.forEach(this::ignoring);
 			}};
 			mockery.checking(expectations);
 		}

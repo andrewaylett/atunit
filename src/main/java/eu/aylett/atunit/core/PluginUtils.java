@@ -23,13 +23,10 @@ public class PluginUtils {
 	@SuppressWarnings("unchecked")
 	public static Class<? extends ContainerPlugin> getContainerPluginClass(Class<?> testClass) throws IncompatiblePluginsException {
 		Set<Class<? extends ContainerPlugin>> containers = Sets.newHashSet();
-		
-		for ( Class<?> plugin : getPluginClasses(testClass)) {
-			if ( ContainerPlugin.class.isAssignableFrom(plugin) ) {
-				Class<? extends ContainerPlugin> container = (Class<? extends ContainerPlugin>)plugin;
-				containers.add(container);
-			}
-		}
+
+		getPluginClasses(testClass).stream()
+				.filter(ContainerPlugin.class::isAssignableFrom)
+				.forEach(plugin -> containers.add((Class<? extends ContainerPlugin>) plugin));
 		
 		Class<? extends ContainerPlugin>[] containersArray = new Class[0];
 		

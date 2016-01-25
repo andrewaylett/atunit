@@ -1,20 +1,19 @@
 package eu.aylett.atunit.guice;
 
-import static org.junit.Assert.*;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
 import eu.aylett.atunit.example.ExampleGuiceTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 public class GuiceContainerTests {
 
@@ -46,7 +45,7 @@ public class GuiceContainerTests {
 		Map<Field, Object> fieldValues = Maps.newHashMap();
 		fieldValues.put( DuplicateFields.class.getDeclaredField("field1"), "field 1" );
 		fieldValues.put( DuplicateFields.class.getDeclaredField("field2"), "field 2" );
-		fieldValues.put( DuplicateFields.class.getDeclaredField("field3"), new Integer(3));
+		fieldValues.put( DuplicateFields.class.getDeclaredField("field3"), 3);
 		
 		DuplicateFields df = (DuplicateFields)container.createTest(DuplicateFields.class, fieldValues);
 		
