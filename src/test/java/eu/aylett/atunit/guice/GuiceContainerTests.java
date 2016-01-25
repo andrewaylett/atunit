@@ -17,70 +17,75 @@ import static org.junit.Assert.*;
 
 public class GuiceContainerTests {
 
-	JUnitCore junit;
-	
-	@Before
-	public void setUp() {
-		junit = new JUnitCore();
-		
-	}
-	
-	@Test
-	public void tExample() {
-		Result result = junit.run(ExampleGuiceTest.class);
-		assertTrue(result.wasSuccessful());
-		assertEquals(2, result.getRunCount());
-	}
-	
-	@Test
-	public void tInheritance() {
-		Result result = junit.run(Inheritance.class);
-		assertTrue(result.wasSuccessful());
-		assertEquals(2, result.getRunCount());
-	}
-	
-	@Test
-	public void tDuplicateFields() throws Exception {
-		GuiceContainer container = new GuiceContainer();
-		Map<Field, Object> fieldValues = Maps.newHashMap();
-		fieldValues.put( DuplicateFields.class.getDeclaredField("field1"), "field 1" );
-		fieldValues.put( DuplicateFields.class.getDeclaredField("field2"), "field 2" );
-		fieldValues.put( DuplicateFields.class.getDeclaredField("field3"), 3);
-		
-		DuplicateFields df = (DuplicateFields)container.createTest(DuplicateFields.class, fieldValues);
-		
+    JUnitCore junit;
 
-		// Guice should have had to fill these in all by itself, because
-		// GuiceContainer should have ignored the undifferentiated fields
-		assertFalse("field 1".equals(df.field1));
-		assertFalse("field 2".equals(df.field2));
-		
-		// this should have our value
-		assertEquals(3, df.field3.intValue());
-	}
-	
-	@Test
-	public void tGenericFieldType() throws Exception {
-		GuiceContainer container = new GuiceContainer();
-		Map<Field,Object> fieldValues = Maps.newHashMap();
-		List<String> stringList = Lists.newLinkedList();
-		fieldValues.put( GenericFieldType.class.getDeclaredField("stringList"), stringList);
-		GenericFieldType gft = (GenericFieldType)container.createTest(GenericFieldType.class, fieldValues);
-		
-		assertSame(stringList, gft.stringList);
-	}
+    @Before
+    public void setUp() {
+        junit = new JUnitCore();
 
-	protected static class Inheritance extends ExampleGuiceTest {
-		public Inheritance() {}
-	}
+    }
 
-	protected static class DuplicateFields {
-		@Inject public String field1;
-		@Inject public String field2;
-		@Inject public Integer field3;
-	}
-	
-	protected static class GenericFieldType {
-		@Inject public List<String> stringList;
-	}
+    @Test
+    public void tExample() {
+        Result result = junit.run(ExampleGuiceTest.class);
+        assertTrue(result.wasSuccessful());
+        assertEquals(2, result.getRunCount());
+    }
+
+    @Test
+    public void tInheritance() {
+        Result result = junit.run(Inheritance.class);
+        assertTrue(result.wasSuccessful());
+        assertEquals(2, result.getRunCount());
+    }
+
+    @Test
+    public void tDuplicateFields() throws Exception {
+        GuiceContainer container = new GuiceContainer();
+        Map<Field, Object> fieldValues = Maps.newHashMap();
+        fieldValues.put(DuplicateFields.class.getDeclaredField("field1"), "field 1");
+        fieldValues.put(DuplicateFields.class.getDeclaredField("field2"), "field 2");
+        fieldValues.put(DuplicateFields.class.getDeclaredField("field3"), 3);
+
+        DuplicateFields df = (DuplicateFields) container.createTest(DuplicateFields.class, fieldValues);
+
+
+        // Guice should have had to fill these in all by itself, because
+        // GuiceContainer should have ignored the undifferentiated fields
+        assertFalse("field 1".equals(df.field1));
+        assertFalse("field 2".equals(df.field2));
+
+        // this should have our value
+        assertEquals(3, df.field3.intValue());
+    }
+
+    @Test
+    public void tGenericFieldType() throws Exception {
+        GuiceContainer container = new GuiceContainer();
+        Map<Field, Object> fieldValues = Maps.newHashMap();
+        List<String> stringList = Lists.newLinkedList();
+        fieldValues.put(GenericFieldType.class.getDeclaredField("stringList"), stringList);
+        GenericFieldType gft = (GenericFieldType) container.createTest(GenericFieldType.class, fieldValues);
+
+        assertSame(stringList, gft.stringList);
+    }
+
+    protected static class Inheritance extends ExampleGuiceTest {
+        public Inheritance() {
+        }
+    }
+
+    protected static class DuplicateFields {
+        @Inject
+        public String field1;
+        @Inject
+        public String field2;
+        @Inject
+        public Integer field3;
+    }
+
+    protected static class GenericFieldType {
+        @Inject
+        public List<String> stringList;
+    }
 }

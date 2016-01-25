@@ -1,4 +1,3 @@
-
 package eu.aylett.atunit.example;
 
 import eu.aylett.atunit.AtUnit;
@@ -15,7 +14,6 @@ import static org.junit.Assert.assertEquals;
 /**
  * This example is exactly the same as ExampleSpringTest, except that it
  * specifies the location of a context XML file to use.
- * 
  */
 @RunWith(AtUnit.class)
 @Container(Container.Option.SPRING)
@@ -25,18 +23,20 @@ import static org.junit.Assert.assertEquals;
  */
 @Context("ExampleSpringTest.xml")
 public class ExampleSpringWithContextLocationTest {
-	
-	@Bean @Unit
-	User user;
-	@Bean("username") String username;
-	
-	@Test
-	public void testGetId() {
-		assertEquals(500, user.getId().intValue());
-	}
-	
-	@Test
-	public void testGetUsername() {
-		assertEquals("fred", user.getUsername());
-	}
+
+    @Bean
+    @Unit
+    User user;
+    @Bean("username")
+    String username;
+
+    @Test
+    public void testGetId() {
+        assertEquals(500, user.getId().intValue());
+    }
+
+    @Test
+    public void testGetUsername() {
+        assertEquals("fred", user.getUsername());
+    }
 }

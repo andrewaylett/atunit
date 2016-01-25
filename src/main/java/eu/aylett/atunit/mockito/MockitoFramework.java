@@ -15,12 +15,12 @@ import java.util.Map;
 public class MockitoFramework implements MockFramework {
     @Override
     public Map<Field, Object> getValues(Field[] fields) throws Exception {
-        Map<Field,Object> mocksAndStubs = new HashMap<>();
+        Map<Field, Object> mocksAndStubs = new HashMap<>();
 
-        for ( Field field : fields ) {
-            if ( field.getAnnotation(Mock.class) != null ) {
+        for (Field field : fields) {
+            if (field.getAnnotation(Mock.class) != null) {
                 mocksAndStubs.put(field, Mockito.mock(field.getType()));
-            } else if ( field.getAnnotation(Stub.class) != null ) {
+            } else if (field.getAnnotation(Stub.class) != null) {
                 mocksAndStubs.put(field, Mockito.mock(field.getType()));
             }
         }

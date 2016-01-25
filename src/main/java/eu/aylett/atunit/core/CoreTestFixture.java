@@ -13,63 +13,63 @@ import java.util.Map;
 import java.util.Set;
 
 public class CoreTestFixture implements TestFixture {
-	
-	final private Class<?> testClass;
-	final private Map<Field,Object> fields;
-	final private Set<Field> mockFields;
-	final private Set<Field> stubFields;
-	final private Field unitField;
-	final private Class<? extends ContainerPlugin> containerClass;
-	final private List<Class<? extends AtUnitPlugin>> pluginClasses;
-	
-	public CoreTestFixture(Class<?> testClass) throws InvalidTestException {
-		this.testClass = testClass;
-		
-		fields = Maps.newHashMap();
-		for ( Field field : TestClassUtils.getFields(testClass)) {
-			fields.put(field, null);
-		}
-		mockFields = TestClassUtils.getMockFields(fields.keySet());
-		stubFields = TestClassUtils.getStubFields(fields.keySet());
-		unitField = TestClassUtils.getUnitField(fields.keySet());
-		containerClass = PluginUtils.getContainerPluginClass(testClass);
-		pluginClasses = PluginUtils.getPluginClasses(testClass);
-	}
 
-	public Object getValue(Field field) {
-		return fields.get(field);
-	}
+    final private Class<?> testClass;
+    final private Map<Field, Object> fields;
+    final private Set<Field> mockFields;
+    final private Set<Field> stubFields;
+    final private Field unitField;
+    final private Class<? extends ContainerPlugin> containerClass;
+    final private List<Class<? extends AtUnitPlugin>> pluginClasses;
 
-	public void setValue(Field field, Object value) {
-		fields.put(field, value);
-	}
+    public CoreTestFixture(Class<?> testClass) throws InvalidTestException {
+        this.testClass = testClass;
 
-	public Set<Field> getFields() {
-		return ImmutableSet.copyOf(fields.keySet());
-	}
+        fields = Maps.newHashMap();
+        for (Field field : TestClassUtils.getFields(testClass)) {
+            fields.put(field, null);
+        }
+        mockFields = TestClassUtils.getMockFields(fields.keySet());
+        stubFields = TestClassUtils.getStubFields(fields.keySet());
+        unitField = TestClassUtils.getUnitField(fields.keySet());
+        containerClass = PluginUtils.getContainerPluginClass(testClass);
+        pluginClasses = PluginUtils.getPluginClasses(testClass);
+    }
 
-	public Class<?> getTestClass() {
-		return testClass;
-	}
+    public Object getValue(Field field) {
+        return fields.get(field);
+    }
 
-	public Set<Field> getMockFields() {
-		return mockFields;
-	}
+    public void setValue(Field field, Object value) {
+        fields.put(field, value);
+    }
 
-	public Set<Field> getStubFields() {
-		return stubFields;
-	}
+    public Set<Field> getFields() {
+        return ImmutableSet.copyOf(fields.keySet());
+    }
 
-	public Field getUnitField() {
-		return unitField;
-	}
-	
-	public Class<? extends ContainerPlugin> getContainerPluginClass() {
-		return containerClass;
-	}
-	
-	public List<Class<? extends AtUnitPlugin>> getPluginClasses() {
-		return pluginClasses;
-	}
+    public Class<?> getTestClass() {
+        return testClass;
+    }
+
+    public Set<Field> getMockFields() {
+        return mockFields;
+    }
+
+    public Set<Field> getStubFields() {
+        return stubFields;
+    }
+
+    public Field getUnitField() {
+        return unitField;
+    }
+
+    public Class<? extends ContainerPlugin> getContainerPluginClass() {
+        return containerClass;
+    }
+
+    public List<Class<? extends AtUnitPlugin>> getPluginClasses() {
+        return pluginClasses;
+    }
 
 }
