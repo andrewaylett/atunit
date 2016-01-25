@@ -6,6 +6,7 @@ import eu.aylett.atunit.*;
 import eu.aylett.atunit.easymock.EasyMockFramework;
 import eu.aylett.atunit.guice.GuiceContainer;
 import eu.aylett.atunit.jmock.JMockFramework;
+import eu.aylett.atunit.mockito.MockitoFramework;
 import eu.aylett.atunit.spring.SpringContainer;
 
 import java.lang.annotation.Annotation;
@@ -33,6 +34,9 @@ final public class TestClassUtils {
 			switch ( mockFrameworkAnno.value() ) {
 				case EASYMOCK: return EasyMockFramework.class;
 				case JMOCK: return JMockFramework.class;
+				case MOCKITO: return MockitoFramework.class;
+				default:
+					throw new IllegalStateException("Expected switch block to be exhaustive:" + mockFrameworkAnno.value());
 			}
 		}
 		

@@ -23,6 +23,7 @@ import eu.aylett.atunit.core.MockFramework;
 import eu.aylett.atunit.easymock.EasyMockFramework;
 import eu.aylett.atunit.guice.GuiceContainer;
 import eu.aylett.atunit.jmock.JMockFramework;
+import eu.aylett.atunit.mockito.MockitoFramework;
 import eu.aylett.atunit.spring.SpringContainer;
 import org.junit.internal.runners.InitializationError;
 import org.junit.internal.runners.JUnit4ClassRunner;
@@ -64,7 +65,7 @@ public class AtUnit extends JUnit4ClassRunner {
 			throw new IncompatibleAnnotationException(Unit.class, Mock.class);
 		}
 		
-		final Map<Field,Object> fieldValues = mockFramework.getValues(testFields.toArray(new Field[0]));
+		final Map<Field,Object> fieldValues = mockFramework.getValues(testFields.toArray(new Field[testFields.size()]));
 		if ( fieldValues.containsKey(unitField)) {
 			throw new IncompatibleAnnotationException(Unit.class, unitField.getType());
 		}
@@ -151,6 +152,9 @@ public class AtUnit extends JUnit4ClassRunner {
 			switch ( mockFrameworkAnno.value() ) {
 				case EASYMOCK: mockFrameworkClass = EasyMockFramework.class; break;
 				case JMOCK: mockFrameworkClass = JMockFramework.class; break;
+				case MOCKITO: mockFrameworkClass = MockitoFramework.class; break;
+				default:
+					throw new IllegalStateException("Expected switch block to be exhaustive: " + mockFrameworkAnno.value());
 			}
 		}
 		

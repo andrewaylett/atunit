@@ -16,20 +16,16 @@
 
 package eu.aylett.atunit.core;
 
-import static org.junit.Assert.*;
-
-import eu.aylett.atunit.ContainerClass;
+import eu.aylett.atunit.*;
+import eu.aylett.atunit.NoUnitException;
+import eu.aylett.atunit.TooManyUnitsException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 
-import eu.aylett.atunit.AtUnit;
-import eu.aylett.atunit.MockFrameworkClass;
-import eu.aylett.atunit.NoUnitException;
-import eu.aylett.atunit.TooManyUnitsException;
-import eu.aylett.atunit.Unit;
+import static org.junit.Assert.*;
 
 
 public class AtUnitTests {
@@ -59,6 +55,7 @@ public class AtUnitTests {
 	public void tNoUnit() {
 		Result result = junit.run(TestClasses.NoUnit.class);
 		assertFalse(result.wasSuccessful());
+		//noinspection ThrowableResultOfMethodCallIgnored
 		assertTrue(result.getFailures().get(0).getException() instanceof NoUnitException);
 	}
 	
@@ -66,6 +63,7 @@ public class AtUnitTests {
 	public void tTooManyUnits() {
 		Result result = junit.run(TestClasses.TooManyUnits.class);
 		assertFalse(result.wasSuccessful());
+		//noinspection ThrowableResultOfMethodCallIgnored
 		assertTrue(result.getFailures().get(0).getException() instanceof TooManyUnitsException);
 	}
 
@@ -90,6 +88,7 @@ public class AtUnitTests {
 		@MockFrameworkClass(NoMockFramework.class)
 		@ContainerClass(NoContainer.class)
 		public static class ClassAnnotationsTest {
+			@SuppressWarnings("unused")
 			@Unit String unit;
 			@Test
 			public void tPass() {
@@ -103,6 +102,7 @@ public class AtUnitTests {
 		public static class NoUnit extends AbstractAtUnitTest {
 		}
 		
+		@SuppressWarnings("unused")
 		public static class TooManyUnits extends AbstractAtUnitTest {
 			@Unit String firstUnit;
 			@Unit String secondUnit;

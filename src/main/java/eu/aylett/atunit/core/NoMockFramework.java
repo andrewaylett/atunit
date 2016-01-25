@@ -16,11 +16,11 @@
 
 package eu.aylett.atunit.core;
 
+import eu.aylett.atunit.Mock;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-
-import eu.aylett.atunit.Mock;
 
 public class NoMockFramework implements MockFramework {
 
@@ -31,7 +31,7 @@ public class NoMockFramework implements MockFramework {
 			}
 		}
 
-		return new HashMap<Field,Object>();
+		return new HashMap<>();
 	}
 
 }
