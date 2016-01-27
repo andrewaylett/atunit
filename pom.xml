@@ -20,7 +20,7 @@
 
     <groupId>eu.aylett</groupId>
     <artifactId>atunit</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1-SNAPSHOT</version>
 
     <name>AtUnit</name>
     <description>
@@ -40,7 +40,7 @@
         <connection>scm:git:https://github.com/andrewaylett/atunit.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/andrewaylett/atunit.git</developerConnection>
         <url>http://github.com/andrewaylett/atunit/</url>
-      <tag>atunit-2.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
