@@ -26,7 +26,7 @@ import java.lang.annotation.*;
  * Note that you specify multiple plugin classes by using an array.  This is uncommon, so here's an example of the syntax:
  *
  * <code>
- * @Plugins( { @FirstPlugin.class, SecondPlugin.class } )
+ * &amp;Plugins( { @FirstPlugin.class, SecondPlugin.class } )
  * public class MyTest {
  *   // ...
  * }
