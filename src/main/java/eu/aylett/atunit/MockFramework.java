@@ -16,6 +16,10 @@
 
 package eu.aylett.atunit;
 
+import eu.aylett.atunit.easymock.EasyMockFramework;
+import eu.aylett.atunit.jmock.JMockFramework;
+import eu.aylett.atunit.mockito.MockitoFramework;
+
 import java.lang.annotation.*;
 
 
@@ -39,9 +43,16 @@ import java.lang.annotation.*;
 public @interface MockFramework {
 
     enum Option {
-        JMOCK,
-        EASYMOCK,
-        MOCKITO,
+        JMOCK(JMockFramework.class),
+        EASYMOCK(EasyMockFramework.class),
+        MOCKITO(MockitoFramework.class),
+        ;
+
+        public final Class<? extends eu.aylett.atunit.core.MockFramework> mockClass;
+
+        Option(Class<? extends eu.aylett.atunit.core.MockFramework> mockClass) {
+            this.mockClass = mockClass;
+        }
     }
 
     Option value();

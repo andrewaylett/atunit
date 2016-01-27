@@ -4,10 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import eu.aylett.atunit.*;
 import eu.aylett.atunit.easymock.EasyMockFramework;
-import eu.aylett.atunit.guice.GuiceContainer;
 import eu.aylett.atunit.jmock.JMockFramework;
 import eu.aylett.atunit.mockito.MockitoFramework;
-import eu.aylett.atunit.spring.SpringContainer;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -32,16 +30,7 @@ final public class TestClassUtils {
             throw new IncompatibleAnnotationException(eu.aylett.atunit.MockFramework.class, MockFrameworkClass.class);
 
         if (mockFrameworkAnno != null) {
-            switch (mockFrameworkAnno.value()) {
-                case EASYMOCK:
-                    return EasyMockFramework.class;
-                case JMOCK:
-                    return JMockFramework.class;
-                case MOCKITO:
-                    return MockitoFramework.class;
-                default:
-                    throw new IllegalStateException("Expected switch block to be exhaustive:" + mockFrameworkAnno.value());
-            }
+            return mockFrameworkAnno.value().mockClass;
         }
 
         if (mockFrameworkClassAnno != null) {
@@ -104,12 +93,7 @@ final public class TestClassUtils {
             throw new IncompatibleAnnotationException(eu.aylett.atunit.Container.class, ContainerClass.class);
 
         if (containerAnno != null) {
-            switch (containerAnno.value()) {
-                case GUICE:
-                    return GuiceContainer.class;
-                case SPRING:
-                    return SpringContainer.class;
-            }
+            return containerAnno.value().containerClass;
         }
 
         if (containerClassAnno != null) {

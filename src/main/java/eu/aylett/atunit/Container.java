@@ -16,6 +16,9 @@
 
 package eu.aylett.atunit;
 
+import eu.aylett.atunit.guice.GuiceContainer;
+import eu.aylett.atunit.spring.SpringContainer;
+
 import java.lang.annotation.*;
 
 /**
@@ -34,9 +37,16 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Container {
 
-    public enum Option {
-        GUICE,
-        SPRING
+    enum Option {
+        GUICE(GuiceContainer.class),
+        SPRING(SpringContainer.class),
+        ;
+
+        public final Class<? extends eu.aylett.atunit.core.Container> containerClass;
+
+        Option(Class<? extends eu.aylett.atunit.core.Container> containerClass) {
+            this.containerClass = containerClass;
+        }
     }
 
     Option value();
